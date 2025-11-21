@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Wolf Blog{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        {% if current_user.is_authenticated %}
+            欢迎，{{ current_user.username }}！
+            <a href="{{ url_for('auth.Logout') }}">退出</a>
+        {% else %}
+            <a href="{{ url_for('auth.Login') }}">登录</a> |
+            <a href="{{ url_for('auth.Register') }}">注册</a>
+        {% endif %}
+    </nav>
+    <br><br>
+    {% block content %}{% endblock %}
+</body>
+</html>

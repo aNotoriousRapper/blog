@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布帖子</title>
+</head>
+<body>
+<form method="POST" action="{{ url_for('routes.CreatePost') }}">
+
+        {{form.csrf_token}}
+
+        <label for="title">标题:</label>
+        {{ form.title(id="title", placeholder="帖子标题") }}<br><br>
+
+        <label for="content">内容:</label>
+        {{ form.content(id="content", placeholder="帖子内容") }}<br><br>
+
+         <label for="tags">标签:</label>
+        {{ form.tags(id="tags", placeholder="汽车,法拉利,V8") }}<br><br>
+
+        <button type="submit">发布</button>
+    </form>
+</body>
+</html>

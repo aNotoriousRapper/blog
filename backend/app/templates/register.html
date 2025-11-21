@@ -1,0 +1,42 @@
+<!-- templates/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h2>注册</h2>
+    <p>
+        <!-- 显示flash消息 -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </p>
+    <form method="POST" action="{{ url_for('auth.Register') }}">
+    {{ form.hidden_tag() }}
+
+    <label for="username">用户名:</label>
+    {{ form.username(id="username", placeholder="请输入用户名") }}<br><br>
+
+    <label for="password">密码:</label>
+    {{ form.password(id="password", placeholder="请输入密码") }}<br><br>
+
+    <label for="confirm_password">重复输入密码:</label>
+    {{ form.confirm_password(id="confirm_password", placeholder="请再次输入密码") }}<br><br>
+
+    <label for="email">邮箱:</label>
+    {{ form.email(id="email", placeholder="请输入邮箱") }}<br><br>
+
+    <button type="submit">注册</button>
+    </form>
+
+    <p>已经有账号? <a href="{{ url_for('auth.Login') }}">登录</a></p>
+</body>
+</html>

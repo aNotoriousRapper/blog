@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h2>登录</h2>
+    <p>
+        <!-- 显示flash消息 -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </p>
+    <form method="POST" action="{{ url_for('auth.Login') }}">
+
+        {{ form.csrf_token }}
+
+        {{ form.next }}
+
+        <label for="email">邮箱账号:</label>
+        {{ form.email(id="email", placeholder="请输入邮箱账号") }}<br><br>
+
+        <label for="password">密码:</label>
+        {{ form.password(id="password", placeholder="请输入密码") }}<br><br>
+
+        <button type="submit">登录</button>
+    </form>
+    <p>还没有账号? <a href="{{ url_for('auth.Register') }}">注册</a></p>
+</body>
+</html>

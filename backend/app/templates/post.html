@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>帖子详情</title>
+</head>
+<body>
+{% extends "layout.html" %}
+
+
+{% block content %}
+    {% if post %}
+        <strong>{{ post.title }}</strong>
+        <p>{{ post.content }}</p>
+    {% else %}
+        <p>暂时无法查看该帖子内容！</p>
+    {% endif %}
+    <br>
+    <strong>评论区</strong>
+    <form method="POST" action="{{ url_for('routes.PostComments', post_id=post.id) }}">
+        {{ form.hidden_tag() }}
+
+        <label for="content"></label>
+        {{ form.content(id="content", placeholder="请输入评论") }}
+        <button type="submit">发布</button>
+    </form>
+    <br><br>
+    {% if comments %}
+        <ul>
+        {% for comment in comments %}
+            <li>
+                <small>
+                    <a href="">{{ comment.user.username }}</a>
+                </small>
+                <br>
+                <p>{{ comment.content }}<br><br>{{ comment.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
+                {% if comment.user.id == current_user.id %}
+                    <p><a href="{{ url_for('routes.DeleteComment', comment_id=comment.id) }}">删除该评论</a></p>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>暂无评论</p>
+    {% endif %}
+{% endblock %}
+</body>
+</html>
